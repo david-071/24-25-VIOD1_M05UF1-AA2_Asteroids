@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class MovimientoAleatorio : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public float horizontal;
-    public float vertical;
-    public float speed;
+    public float forceMagnitude = 4f;
+    public float rotationMagnitude = 5f;
     void Start()
     {
-        horizontal = Random.Range(-1f, 1f);
-        vertical = Random.Range(-1f, 1f);
-        speed = Random.Range(-1f, 1f);
-        rb = GetComponent<Rigidbody2D>();
-        //Transform.eulerAngles = transform.eulerAngles
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
+        Vector2 randomDirection = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+        rb.AddForce(randomDirection * forceMagnitude, ForceMode2D.Impulse);
+
+        float randomTorque = Random.Range(-rotationMagnitude, rotationMagnitude);
+        rb.AddTorque(randomTorque, ForceMode2D.Impulse);
     }
 }
